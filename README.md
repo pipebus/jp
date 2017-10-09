@@ -10,6 +10,14 @@ $ echo '{"foo": {"bar": ["a", "b", "c"]}}' | jp foo.bar[1]
 "b"
 ```
 
+This is a fork of the real upstream jp with a few simple useability
+PRs merged (automatic colour support, reporting line numbers
+of errors, and ability to process multiple JSON elements in one
+command).
+
+This is not a cleaned up independent project, but goreleaser has
+been used to build the current state (see releases tab) if you want to use
+it.
 
 # Installing
 
