@@ -1,0 +1,31 @@
+project_name: jp
+
+archives:
+  - format: tar.gz
+    wrap_in_directory: true
+    format_overrides:
+      - goos: windows
+        format: zip
+    # remove README and LICENSE
+    files:
+      - none*
+
+builds:
+  - env: [CGO_ENABLED=0]
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+
+nfpms:
+- maintainer: Tong Sun <suntong@cpan.org>
+  description: Cli program for JMESPath
+  homepage: https://github.com/go-jsonfile/jp
+  license: Apache 2.0
+  formats:
+  - deb
+  - rpm
+  - apk
