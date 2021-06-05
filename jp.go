@@ -11,7 +11,7 @@ import (
 	"github.com/jmespath/jp/Godeps/_workspace/src/github.com/jmespath/go-jmespath"
 )
 
-const version = "0.1.3"
+const version = "0.1.5"
 
 func main() {
 	app := cli.NewApp()
