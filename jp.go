@@ -21,6 +21,10 @@ func main() {
 	app.Author = ""
 	app.Email = ""
 	app.Flags = []cli.Flag{
+		cli.BoolFlag{
+			Name:   "compact, c",
+			Usage:  "Produce compact JSON output that omits nonessential whitespace.",
+		},
 		cli.StringFlag{
 			Name:  "filename, f",
 			Usage: "Read input JSON from a file instead of stdin.",
@@ -119,7 +123,12 @@ func runMain(c *cli.Context) int {
 		if c.Bool("unquoted") && isString {
 			os.Stdout.WriteString(converted)
 		} else {
-			toJSON, err := json.MarshalIndent(result, "", "  ")
+			var toJSON []byte
+			if c.Bool("compact") {
+				toJSON, err = json.Marshal(result)
+			} else {
+				toJSON, err = json.MarshalIndent(result, "", "  ")
+			}
 			if err != nil {
 				errMsg("Error marshalling result to JSON: %s\n", err)
 				return 3
