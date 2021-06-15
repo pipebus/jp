@@ -38,6 +38,10 @@ func main() {
 			Usage: "Change the color setting (none, auto, always). auto is based on whether output is a tty.",
 		},
 		cli.BoolFlag{
+			Name:   "compact",
+			Usage:  "Produce compact JSON output that omits nonessential whitespace.",
+		},
+		cli.BoolFlag{
 			Name:   "unquoted, u",
 			Usage:  "If the final result is a string, it will be printed without quotes.",
 			EnvVar: "JP_UNQUOTED",
@@ -153,7 +157,9 @@ func runMain(c *cli.Context) int {
 		} else {
 			var toJSON []byte
 			var err error
-			if color.NoColor {
+			if c.Bool("compact") {
+				toJSON, err = json.Marshal(result)
+			} else if color.NoColor {
 				// avoid doing the extra processing in jsoncolor
 				toJSON, err = json.MarshalIndent(result, "", "  ")
 			} else {
